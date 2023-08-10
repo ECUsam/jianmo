@@ -13,15 +13,7 @@ from .filter import *
 # 获取全部特征
 def get_feat(train, sample):
     result = sample
-    # 获取协同过滤特征：
-    result = get_loc_filter(train, result)
-    result = get_user_loc_filter(train, result)
-    print('协同过滤特征构造完成！')
     gc.collect()
-    result.fillna(-1000000, inplace=True)
-    gc.collect()
-    print('所有特征构造完成：\ncolumns:\n{}'.format(result.columns))
-    return result
 
     # 获取距离特征：
     result = get_distance(result)  # distance # dui 90 wc

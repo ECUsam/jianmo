@@ -71,9 +71,12 @@ def get_loc_filter(train, result):
 
     sloc_count = train.groupby('geohashed_start_loc').size().reset_index(name='sloc_count')
     result = pd.merge(result, sloc_count, on='geohashed_start_loc', how='left')
+
     sloc_as_eloc_count = train.groupby('geohashed_end_loc').size().reset_index(name='sloc_as_eloc_count')
     result = pd.merge(result, sloc_as_eloc_count, left_on='geohashed_start_loc', right_on='geohashed_end_loc',
                       how='left')
+
+    result.rename(columns={'geohashed_end_loc_x': 'geohashed_end_loc'}, inplace=True)
 
     result = pd.merge(result, loc_filter, on=['geohashed_start_loc', 'geohashed_end_loc'], how='left')
     result['sloc_eloc_common_eloc_rate'] = result['sloc_eloc_common_eloc_count'] / (
@@ -154,11 +157,7 @@ def get_user_loc_filter(train, result):
          "user_sloc_eloc_common_conn2_count": user_sloc_eloc_common_conn2_count})
     result = pd.merge(result, user_loc_filter, on=['userid', 'geohashed_start_loc', 'geohashed_end_loc'], how='left')
 
-    result['user_sloc_count'] = result.apply(
-        lambda row: get_user_sloc_count(row['userid'], row['geohashed_start_loc'], user_sloc_elocs), axis=1)
 
-    result['user_sloc_as_eloc_count'] = result.apply(
-        lambda row: get_user_sloc_as_eloc_count(row['userid'], row['geohashed_start_loc'], user_eloc_slocs), axis=1)
 
     result['user_sloc_eloc_common_eloc_rate'] = result['user_sloc_eloc_common_eloc_count'] / (
             result['user_sloc_count'] + result['user_eloc_as_sloc_count'])
@@ -170,14 +169,5 @@ def get_user_loc_filter(train, result):
             result['user_sloc_as_eloc_count'] + result['user_eloc_as_sloc_count'])
     return result
 
-def get_user_sloc_count(user, sloc, user_sloc_elocs):
-    if user in user_sloc_elocs:
-        if sloc in user_sloc_elocs[user]:
-            return sum(user_sloc_elocs[user][sloc].values())
-    return 0
 
-def get_user_sloc_as_eloc_count(user, sloc, user_eloc_slocs):
-    if user in user_eloc_slocs:
-        if sloc in user_eloc_slocs[user]:
-            return sum(user_eloc_slocs[user][sloc].values())
-    return 0
+

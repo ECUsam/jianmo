@@ -14,4 +14,6 @@ train_sample = get_sample(train1, train2)
 train_feat = get_feat(train1, train_sample)
 train_all = get_label(train_feat, opt)
 print(train_all)
+
 gc.collect()
+

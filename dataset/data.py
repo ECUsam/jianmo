@@ -12,15 +12,13 @@ def get_train_data(opt):
     train = pd.read_csv(opt['train_csv'])
     train1 = train[(train['starttime'] < opt['starttime']) | (train['starttime'] >= opt['endtime'])]
     train2 = train[(train['starttime'] >= opt['starttime']) & (train['starttime'] < opt['endtime'])]
-    # train2_old = train2[train2.userid.isin(train1.userid)]
-    # train2_new = train2[~train2.userid.isin(train1.userid)]
-    # train2_old_sample = train2_old.sample(frac=0.8)
-    # train2 = pd.concat([train2_old_sample, train2_new])
-    # train2_newuser = train2[~train2.userid.isin(train1['userid'])]
-    # train2 = pd.concat([train2, train2_newuser, train2_newuser])
-    # train1 = train[(train['starttime'] < '2017-05-18 00:00:00') | ((train['starttime'] >= '2017-05-20 00:00:00') & (train['starttime'] < '2017-05-22 00:00:00'))]
-    # train2 = train[((train['starttime'] >= '2017-05-18 00:00:00') & (train['starttime'] < '2017-05-20 00:00:00')) | (train['starttime'] >= '2017-05-22 00:00:00')]
-    del train2['geohashed_end_loc']
+    # train2_old = train2[train2.userid.isin(train1.userid)] train2_new = train2[~train2.userid.isin(train1.userid)]
+    # train2_old_sample = train2_old.sample(frac=0.8) train2 = pd.concat([train2_old_sample, train2_new])
+    # train2_newuser = train2[~train2.userid.isin(train1['userid'])] train2 = pd.concat([train2, train2_newuser,
+    # train2_newuser]) train1 = train[(train['starttime'] < '2017-05-18 00:00:00') | ((train['starttime'] >=
+    # '2017-05-20 00:00:00') & (train['starttime'] < '2017-05-22 00:00:00'))] train2 = train[((train['starttime'] >=
+    # '2017-05-18 00:00:00') & (train['starttime'] < '2017-05-20 00:00:00')) | (train['starttime'] >= '2017-05-22
+    # 00:00:00')] del train2['geohashed_end_loc']
     train1 = add_info(train1)  # 添加小时信息、距离信息和经纬度信息
     # test = pd.read_csv(opt['test_csv']) # add
     # train2 = get_hour(train2) # add

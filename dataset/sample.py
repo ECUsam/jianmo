@@ -121,6 +121,10 @@ def get_sample(train, test, load=False):
     result = pd.merge(result, restmp, on=['orderid', 'geohashed_end_loc'], how='left')
     # 添加负样本
     result = pd.merge(result, test, on='orderid', how='left')
+
+    result.rename(columns={'geohashed_end_loc_x': 'geohashed_end_loc'}, inplace=True)
+
+
     # 删除出发点和目的点相同的样本 以及 异常值
     result = result[result['geohashed_end_loc'] != result['geohashed_start_loc']]
     result = result[(~result['geohashed_start_loc'].isnull()) & (~result['geohashed_end_loc'].isnull())]
