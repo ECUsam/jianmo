@@ -1,0 +1,11 @@
+# 默认忽略的文件
+/.idea/
+/__pycache__/
+*.csv
+/output_test.csv
+/output_train.csv
+/random_forest_model_step_0.pkl
+/random_forest_model_step_1.pkl
+/random_forest_model_step_2.pkl
+/random_forest_model_step_3.pkl
+/random_forest_model_step_4.pkl
