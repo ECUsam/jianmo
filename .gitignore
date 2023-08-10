@@ -2,6 +2,7 @@
 /.idea/
 /__pycache__/
 *.csv
+*.pkl
 /output_test.csv
 /output_train.csv
 /random_forest_model_step_0.pkl

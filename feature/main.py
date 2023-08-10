@@ -16,11 +16,7 @@ def get_feat(train, sample):
     gc.collect()
 
     # 获取距离特征：
-    result = get_distance(result)  # distance # dui 90 wc
-    # result = result[(result['distance'] < 7200) & (result['distance'] > 100)]
-    # print('过滤大小距离之后：', result.shape)
-    # result = result[result['distance'] < 10000]
-    # print('过滤大距离之后：', result.shape)
+    result = get_distance(result)
     print('距离特征构造完成！')
 
     # 获取小时特征：

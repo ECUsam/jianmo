@@ -4,8 +4,8 @@ class DefaultConfig(dict):
 
         super().__init__()
         self['data_dir'] = '/save'
-        self['train_csv'] = 'output_train.csv'
-        self['test_csv'] = 'output_test.csv'
+        self['train_csv'] = 'final_clustered_data.csv'
+        self['test_csv'] = 'final_clustered_data_test.csv'
         self['cache_dir'] = '/cache'
         self['model_dir'] = '/snapshot'
         self['result_dir'] = '/result'

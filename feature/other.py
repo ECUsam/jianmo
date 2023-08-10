@@ -62,14 +62,20 @@ def get_distance(result):
 
 
 def get_latlon(result, end=True):
+    # if end:
+    #     eloc_latlon = result['geohashed_end_loc'].apply(lambda x: geohash.decode_exactly(x))
+    #     result['eloc_lat'] = eloc_latlon.apply(lambda x: float(x[0]))
+    #     result['eloc_lon'] = eloc_latlon.apply(lambda x: float(x[1]))
+    # sloc_latlon = result['geohashed_start_loc'].apply(lambda x: geohash.decode_exactly(x))
+    # result['sloc_lat'] = sloc_latlon.apply(lambda x: float(x[0]))
+    # result['sloc_lon'] = sloc_latlon.apply(lambda x: float(x[1]))
+    result['sloc_lat'] = result['geohashed_start_loc_Latitude']
+    result['sloc_lon'] = result['geohashed_start_loc_Longitude']
+
     if end:
-        eloc_latlon = result['geohashed_end_loc'].apply(lambda x: geohash.decode_exactly(x))
-        result['eloc_lat'] = eloc_latlon.apply(lambda x: float(x[0]))
-        result['eloc_lon'] = eloc_latlon.apply(lambda x: float(x[1]))
-    sloc_latlon = result['geohashed_start_loc'].apply(lambda x: geohash.decode_exactly(x))
-    result['sloc_lat'] = sloc_latlon.apply(lambda x: float(x[0]))
-    result['sloc_lon'] = sloc_latlon.apply(lambda x: float(x[1]))
-    if end:
+        result['eloc_lat'] = result['geohashed_end_loc_Latitude']
+        result['eloc_lon'] = result['geohashed_end_loc_Longitude']
+
         result['eloc_sloc_lat_sub'] = result['eloc_lat'] - result['sloc_lat']
         result['eloc_sloc_lon_sub'] = result['eloc_lon'] - result['sloc_lon']
     return result
